@@ -1,0 +1,76 @@
+<!doctype html>
+<html lang="en">
+<!-- author: Parampal Singh Gill -->
+
+<head>
+    <!-- add descriptive text to the <title> -->
+    <title> Parampal Singh Gill | Bio </title>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <!-- 
+    define the CSS in an external file (eg: css/style.css)
+	and load the styles into many HTML pages
+	using the link tag
+    -->
+    <link href="css/style.css" rel="stylesheet">
+
+    <!--
+    load the JavaScript
+    -->
+    <script src="scripts/assignment08.js" defer></script>
+</head>
+
+<body>
+    <div class="wrapper">
+        <header>
+            <h1>Assignment 08</h1>
+        </header>
+        <main class="main-content">
+            <div class="assignment-part">
+                <h2> Part B: Pacman </h2>
+                <!-- 
+                <section>
+                the main tag used for sectioning, or 'grouping' 
+                related blocks of content. 
+                
+                NOTE: all sections should be provided a heading!
+                -->
+                <section class="custom_section">
+                    <p>Control movement using the W, A, S, D keys, Use X to stop</p>
+                    <div id="pacman_controls" class="pacman-controls">
+                        <button id="move_up" class="move-up">W</button>
+                        <button id="move_left" class="move-left">A</button>
+                        <button id="move_down" class="move-down">S</button>
+                        <button id="move_right" class="move-right">D</button>
+                        <button id="move_stop" class="move-stop">X</button>
+
+                    </div>
+                    <div id="pacman-outer-area" class="pacman-outer-area">
+                        <div class="pacman-move-area">
+                            <img id="pacman_image" src="images/pacman/pac-man-static.gif" alt="Pacman image">
+
+                        </div>
+                    </div>
+                </section>
+            </div>
+
+        </main>
+
+        <!-- 
+		<footer>
+		used for styandard footer content
+		including but not limited to any or all of these
+		- copyright information
+		- contact information
+		- sitemap
+		- social media accounts
+		- legal disclaimers
+		-->
+        <footer>
+            <small>&copy; 2026 Parampal Singh Gill</small>
+        </footer>
+    </div>
+</body>
+
+</html>
