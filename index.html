@@ -18,40 +18,21 @@
     <!--
     load the JavaScript
     -->
-    <script src="scripts/assignment08.js" defer></script>
+    <script src="scripts/main.js" defer></script>
 </head>
 
 <body>
     <div class="wrapper">
         <header>
-            <h1>Assignment 08</h1>
+            <h1>Hangman</h1>
         </header>
         <main class="main-content">
             <div class="assignment-part">
-                <h2> Part B: Pacman </h2>
-                <!-- 
-                <section>
-                the main tag used for sectioning, or 'grouping' 
-                related blocks of content. 
-                
-                NOTE: all sections should be provided a heading!
-                -->
-                <section class="custom_section">
-                    <p>Control movement using the W, A, S, D keys, Use X to stop</p>
-                    <div id="pacman_controls" class="pacman-controls">
-                        <button id="move_up" class="move-up">W</button>
-                        <button id="move_left" class="move-left">A</button>
-                        <button id="move_down" class="move-down">S</button>
-                        <button id="move_right" class="move-right">D</button>
-                        <button id="move_stop" class="move-stop">X</button>
-
-                    </div>
-                    <div id="pacman-outer-area" class="pacman-outer-area">
-                        <div class="pacman-move-area">
-                            <img id="pacman_image" src="images/pacman/pac-man-static.gif" alt="Pacman image">
-
-                        </div>
-                    </div>
+                <section id="hangman" class="hangman">
+                    <img src="images/hangman/hangman-0.PNG" alt="hangman">
+                </section>
+                <section id="keyboard" class="keyboard">
+                    <!-- the keyboard keys are put here in a JS loop -->
                 </section>
             </div>
 

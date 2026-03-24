@@ -13,8 +13,15 @@
     /* red means 'it's time to panic!' */
     --good-color: rgb(24, 207, 24);
     /* green means 'let's rock!' */
+    --body_bg_color: #b2d3e0;
 }
 
+/* Apply to all because not inherited by default. 
+border-box makes sure that when we aplly 100% to something, it includes the border and padding in that
+contect-box is what is applied by the browser by default, and makes 100% only to the content*/
+* {
+  box-sizing: border-box;
+}
 
 html {
     font-family: 'MyCustomFont', sans-serif;
@@ -22,7 +29,7 @@ html {
 }
 
 body {
-    background-color: #b2d3e0;
+    background-color: var(--body_bg_color);
     margin: 0px;
 }
 
@@ -36,7 +43,7 @@ header {
 section {
     border: dotted 2px #747e5e;
     padding: 10px;
-    margin: 10px;
+    /* margin: 10px; */
 }
 
 button {
@@ -151,9 +158,9 @@ place after HTML elements in .css file
     /*
     even if there is insufficient content,
     expand the page height to at least be as tall as the viewport */
-    min-height: 100vh;
+    min-height: 100vh;      /* this is relative to viewport */
     /* stop page conent from getting too wide */
-    width: 100%;
+    width: 100%; /* this is relative to parent */
     /*  this will center the page horizontally */
     margin: auto;
     /* choose a background color */
@@ -162,7 +169,7 @@ place after HTML elements in .css file
 	   of this div and the contents */
     padding: 0px 10px;
 
-    border: solid 2px #16151E;
+    border: solid 2px #33a8cc;
     border-width: 0px 4px;
 
     background-image: url("../images/background/background1.avif");
@@ -170,25 +177,46 @@ place after HTML elements in .css file
 
 .main-content {
     display: grid;
-    justify-items: center;  /* horizontal center */
+    /* justify-items: center; */
+    /*
+    justify-items: center;  horizontal center */
+    /* flex: 1; */
 }
 
 .assignment-part {    
-    border: solid 2px darkred;
+    border: solid 2px black;
     display: grid;
+    grid-template-rows: 60% 40%; /* first row 60%, second 40% */
     /* grid-template-columns: 1fr; */
     /* /* grid-template-columns: repeat(2, 1fr); */
     /* grid-template-rows: repeat(1, 1fr); */
-    margin-top: 10px;
-    max-width: 75%;
+    margin: 10px auto;
+    max-width: 95%;
+    width: 95%;
+    /* justify-self: center; */
     padding: 5px 10px;
 }
 
-.custom_section {
+.hangman {
+  width: 100%;
+  aspect-ratio: 1 / 1; /* square container */
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background-color: rgb(235, 231, 225);
+}
+.hangman img {
+  max-width: 100%;      /* never wider than container */
+  max-height: 100%;     /* never taller than container */
+  object-fit: contain;  /* scales while keeping aspect ratio */
+}
+
+
+.keyboard {
     display: flex;
     flex-direction: column;
     align-items: center;
-    border-color: darkred;
+    border-color: black;
     border-style: solid;
     border-width: 2px 5px 5px 2px;
     border-radius: 5px 5px 5px 5px;
@@ -196,67 +224,41 @@ place after HTML elements in .css file
     background-color: white;
     height: auto;
     margin-top: 0px;
+    gap: 12px;
+}
+
+.keyboard button {
+    background-color: #242424;
+    color: white;          /* text color */
+    width: 60px;
+    height: 60px;
+    font-size: 24px;
+    border: none;          /* remove default border */
+    padding: 8px 8px;     /* some spacing inside the button */
+    border-radius: 2px;    /* optional: rounded corners */
+    cursor: pointer;       /* pointer on hover */
+    font-weight: bold;     /* make text bold */
+    font-weight: bold;
+    /* margin: 12px; */
+    border-radius: 5px 5px 5px 5px;
+}
+
+.keyboard .row { /* becasue row is a class */
+    margin-top: 8px;
+    display: flex;
+    flex-direction: row;
+    gap: 18px;
 }
 
 /*image always stays inside parent and scales accordingly*/
-.custom_section img {
+/* .keyboard img {
   width: 100%;
   height: 100%;
   object-fit: contain;
-}
+} */
 
-.btns-carousal {
-    margin-bottom: 8px;
-}
 
-/*pacman css stuff*/
-.pacman-controls {
-    border: solid 2px darkred;
-    background-color: black;
-    padding: 5px 5px;
-    display: grid;
-    grid-template-columns: repeat(3, auto);
-    justify-content: center;
-    gap: 5px;
-}
-.move-up { grid-column: 2; grid-row: 1; }
-.move-left { grid-column: 1; grid-row: 2; }
-.move-down { grid-column: 2; grid-row: 2; }
-.move-right { grid-column: 3; grid-row: 2; }
-.move-stop { 
-    grid-column: 2; 
-    grid-row: 3; 
-    background-color: white;
-    color: red;
-}
-.pacman-controls button {
-    border: solid 1px lightyellow;
-    width: 30px;
-    height: 30px;
-}
 
-.pacman-outer-area {
-    border: solid 2px darkred;
-    background-color: black;
-    /* width: 100%; */
-    height: 250px;
-    align-self: stretch;
-    /* margin: 0 20px; */
-    margin-top: 5px;
-    margin-bottom: 5px;
-    margin-left: 5px;
-    margin-right: 5px;
-}
-.pacman-move-area {
-    position: relative;
-    height: calc(100% - 45px);
-    width: calc(100% - 45px);
-}
-.pacman-move-area img {
-    position: absolute;
-    height: 45px;
-    width: 45px;
-}
 /*
 ------------------------
 #id element selectors
@@ -289,7 +291,7 @@ media queries
     }
 
     body {
-        background-color: #cf4606;
+        background-color: var(--body_bg_color);
     }
 }
 
@@ -300,7 +302,7 @@ media queries
     }
 
     body {
-        background-color: #50cf06;
+        background-color: var(--body_bg_color);
     }
 
     /* .part01 {
@@ -312,7 +314,8 @@ media queries
 /* client is wider than 1024px */
 @media (min-width: 1024px) {
     .wrapper {
-        max-width: 1024px;
+        /* max-width: 1440px; */
+        width: 100vw;
     }
 
     html {
@@ -320,7 +323,7 @@ media queries
     }
 
     body {
-        background-color: #0a0a0a;
+        background-color: var(--body_bg_color);
     }
 
     /* .part01 {
@@ -328,9 +331,3 @@ media queries
         grid-template-rows: repeat(2, 1fr);
     } */
 }
-
-
-/*
-Questions: 
-1. not sure why media queries are not working
- */
