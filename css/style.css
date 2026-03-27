@@ -14,6 +14,7 @@
     --good-color: rgb(24, 207, 24);
     /* green means 'let's rock!' */
     --body_bg_color: #b2d3e0;
+    --hangman_image_bg_color: rgb(244, 244, 239);
 }
 
 /* Apply to all because not inherited by default. 
@@ -41,8 +42,8 @@ header {
 
 
 section {
-    border: dotted 2px #747e5e;
-    padding: 10px;
+    /* border: dotted 2px #747e5e; */
+    /* padding: 10px; */
     /* margin: 10px; */
 }
 
@@ -158,7 +159,7 @@ place after HTML elements in .css file
     /*
     even if there is insufficient content,
     expand the page height to at least be as tall as the viewport */
-    min-height: 100vh;      /* this is relative to viewport */
+    height: 100vh;      /* this is relative to viewport */
     /* stop page conent from getting too wide */
     width: 100%; /* this is relative to parent */
     /*  this will center the page horizontally */
@@ -175,42 +176,63 @@ place after HTML elements in .css file
     background-image: url("../images/background/background1.avif");
 }
 
-.main-content {
+/* .main-content {
     display: grid;
     /* justify-items: center; */
     /*
     justify-items: center;  horizontal center */
-    /* flex: 1; */
-}
+    /* flex: 1; 
+} */
 
 .assignment-part {    
-    border: solid 2px black;
+    /* border: solid 2px black; */
     display: grid;
-    grid-template-rows: 60% 40%; /* first row 60%, second 40% */
+    grid-template-rows: 55% 10% 35%;
+    min-height: 0;  /* critical for grid children to respect row heights */
+    /* grid-template-rows: 60% 40%; first row 60%, second 40% */
     /* grid-template-columns: 1fr; */
     /* /* grid-template-columns: repeat(2, 1fr); */
     /* grid-template-rows: repeat(1, 1fr); */
-    margin: 10px auto;
+    margin: 0px auto;
     max-width: 95%;
     width: 95%;
     /* justify-self: center; */
-    padding: 5px 10px;
+    /* padding: 5px 10px; */
 }
 
 .hangman {
   width: 100%;
-  aspect-ratio: 1 / 1; /* square container */
   display: flex;
   justify-content: center;
   align-items: center;
-  background-color: rgb(235, 231, 225);
+  background-color: rgb(244, 244, 239);
 }
-.hangman img {
-  max-width: 100%;      /* never wider than container */
-  max-height: 100%;     /* never taller than container */
-  object-fit: contain;  /* scales while keeping aspect ratio */
+.image-container {
+  min-height: 0;    /* critical for grid row to respect height */
+  overflow: hidden; /* prevents image overflow */
+  display: flex;        /* keep centering if needed */
+  justify-content: center;
+  align-items: center;
+  border-color: black;
+  border-style: solid;
+  border-width: 1px 3px 3px 1px;
+  border-radius: 5px 5px 5px 5px;
 }
 
+.image-container img {
+  width: 100%;
+  height: 100%;
+  object-fit: contain; /* or contain if you want no cropping */
+  display: block;
+}
+
+.guess-word {
+    background-color: var(--hangman_image_bg_color);
+    border-color: black;
+    border-style: solid;
+    border-width: 1px 3px 3px 1px;
+    border-radius: 5px 5px 5px 5px;
+}
 
 .keyboard {
     display: flex;
@@ -218,10 +240,10 @@ place after HTML elements in .css file
     align-items: center;
     border-color: black;
     border-style: solid;
-    border-width: 2px 5px 5px 2px;
+    border-width: 1px 3px 3px 1px;
     border-radius: 5px 5px 5px 5px;
     padding: 0px 0px;
-    background-color: white;
+    background-color: var(--hangman_image_bg_color);
     height: auto;
     margin-top: 0px;
     gap: 12px;
@@ -235,12 +257,11 @@ place after HTML elements in .css file
     font-size: 24px;
     border: none;          /* remove default border */
     padding: 8px 8px;     /* some spacing inside the button */
-    border-radius: 2px;    /* optional: rounded corners */
     cursor: pointer;       /* pointer on hover */
     font-weight: bold;     /* make text bold */
     font-weight: bold;
     /* margin: 12px; */
-    border-radius: 5px 5px 5px 5px;
+    border-radius: 50px;
 }
 
 .keyboard .row { /* becasue row is a class */
@@ -284,8 +305,8 @@ media queries
     }
 } */
 
-/* client is 0px or more */
-@media (min-width: 0px) {
+/* client is 320px or more */
+@media (min-width: 320px) {
     html {
         font-size: 1.0em;
     }
@@ -293,16 +314,92 @@ media queries
     body {
         background-color: var(--body_bg_color);
     }
+
+    .keyboard button {
+        width: 20px;
+        height: 20px;
+        font-size: 11px;
+        padding: 2px 2px;     /* some spacing inside the button */
+        border-radius: 1px;    /* optional: rounded corners */
+    }
+
+    .keyboard .row { /* becasue row is a class */
+        gap: 4px;
+    }
+}
+
+
+@media (min-width: 450px) {
+    html {
+        font-size: 1.0em;
+    }
+
+    body {
+        background-color: var(--body_bg_color);
+    }
+
+    .keyboard button {
+        width: 28px;
+        height: 28px;
+        font-size: 14px;
+        padding: 3px 3px;     /* some spacing inside the button */
+        border-radius: 1px;    /* optional: rounded corners */
+    }
+
+    .keyboard .row { /* becasue row is a class */
+        gap: 9px;
+    }
 }
 
 /* client is 680px or more */
-@media (min-width: 680px) {
+@media (min-width: 620px) {
     html {
         font-size: 1.1em;
     }
 
     body {
         background-color: var(--body_bg_color);
+    }
+
+    .keyboard button {
+        width: 40px;
+        height: 40px;
+        font-size: 20px;
+        padding: 6px 6px;     /* some spacing inside the button */
+        border-radius: 1px;    /* optional: rounded corners */
+    }
+
+    .keyboard .row { /* becasue row is a class */
+        gap: 12px;
+    }
+
+    /* .part01 {
+        grid-template-columns: repeat(2, 1fr); */
+    /* grid-template-rows: repeat(2, 1fr); */
+    /* } */
+}
+
+/* client is 680px or more */
+@media (min-width: 880px) {
+    html {
+        font-size: 1.1em;
+    }
+
+    body {
+        background-color: var(--body_bg_color);
+    }
+
+    .keyboard button {
+        width: 50px;
+        height: 50px;
+        font-size: 24px;
+        padding: 8px 8px;     /* some spacing inside the button */
+        border-radius: 2px;    /* optional: rounded corners */
+    }
+
+    .keyboard .row { /* becasue row is a class */
+        margin-top: 8px;
+        gap: 18px;
     }
 
     /* .part01 {
