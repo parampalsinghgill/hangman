@@ -13,6 +13,7 @@
     /* red means 'it's time to panic!' */
     --good-color: rgb(24, 207, 24);
     /* green means 'let's rock!' */
+    --dark_rich_green: #335347;
     --body_bg_color: #b2d3e0;
     --hangman_image_bg_color: rgb(244, 244, 239);
 }
@@ -35,7 +36,7 @@ body {
 }
 
 header {
-    background-color: #335347;
+    background-color: var(--dark_rich_green);
     color: white;
     padding: 10px;
 }
@@ -226,12 +227,31 @@ place after HTML elements in .css file
   display: block;
 }
 
-.guess-word {
+.word-area {
     background-color: var(--hangman_image_bg_color);
     border-color: black;
     border-style: solid;
     border-width: 1px 3px 3px 1px;
     border-radius: 5px 5px 5px 5px;
+    display: flex;
+    justify-content: center;  /* horizontal center */
+    align-items: center;      /* vertical center */
+    flex: 1;                  /* take available space */
+    gap: 30px;
+}
+.word-area div {
+    border-bottom: 3px dashed rgb(41, 40, 40);
+    padding: 0px 20px; /* first argument is top and bottom, second is left right*/
+    /* border: 2px solid black; */
+    /* display: inline-block; */
+    /* border-bottom: 2px solid black; */
+    /* border-style: dashed; */
+    /* border-width: 2px; */
+}
+.alphabet {
+    /* color: red;\ */
+    font-weight: bold;
+    font-size: x-large;
 }
 
 .keyboard {
