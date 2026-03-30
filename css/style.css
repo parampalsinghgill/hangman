@@ -48,16 +48,6 @@ section {
     /* margin: 10px; */
 }
 
-button {
-  background-color:darkred; /* button background */
-  color: white;          /* text color */
-  border: none;          /* remove default border */
-  padding: 4px 8px;     /* some spacing inside the button */
-  border-radius: 2px;    /* optional: rounded corners */
-  cursor: pointer;       /* pointer on hover */
-  font-weight: bold;     /* make text bold */
-}
-
 /*
 If you want to override one header, do it lower.. cascading will help you
 */
@@ -188,7 +178,7 @@ place after HTML elements in .css file
 .assignment-part {    
     /* border: solid 2px black; */
     display: grid;
-    grid-template-rows: 55% 10% 35%;
+    grid-template-rows: 55% 15% 30%;
     min-height: 0;  /* critical for grid children to respect row heights */
     /* grid-template-rows: 60% 40%; first row 60%, second 40% */
     /* grid-template-columns: 1fr; */
@@ -227,17 +217,25 @@ place after HTML elements in .css file
   display: block;
 }
 
-.word-area {
+.guess-word-section {
+    display: flex;
+    flex-direction: column;
+    /* justify-content: center;
+    align-items: center;    
+    flex: 1;                
+    gap: 30px; */
     background-color: var(--hangman_image_bg_color);
     border-color: black;
     border-style: solid;
     border-width: 1px 3px 3px 1px;
-    border-radius: 5px 5px 5px 5px;
+    border-radius: 5px 5px 5px 5px;    
+}
+.word-area {
     display: flex;
     justify-content: center;  /* horizontal center */
     align-items: center;      /* vertical center */
     flex: 1;                  /* take available space */
-    gap: 30px;
+    gap: 20px;
 }
 .word-area div {
     border-bottom: 3px dashed rgb(41, 40, 40);
@@ -247,6 +245,17 @@ place after HTML elements in .css file
     /* border-bottom: 2px solid black; */
     /* border-style: dashed; */
     /* border-width: 2px; */
+}
+.hint-area {
+    display: flex;
+    justify-content: center;  /* horizontal center */
+    align-items: center;      /* vertical center */
+    /* border: dotted 1px black; */
+    /* center container itself horizontally */
+    margin-left: auto;
+    margin-right: auto;
+    /* background-color: #242424; */
+    color: darkred;
 }
 .alphabet {
     /* color: red;\ */
@@ -262,14 +271,14 @@ place after HTML elements in .css file
     border-style: solid;
     border-width: 1px 3px 3px 1px;
     border-radius: 5px 5px 5px 5px;
-    padding: 0px 0px;
+    padding-top: 8px;
     background-color: var(--hangman_image_bg_color);
     height: auto;
     margin-top: 0px;
     gap: 12px;
 }
 
-.keyboard button {
+.button-enabled {
     background-color: #242424;
     color: white;          /* text color */
     width: 60px;
@@ -285,12 +294,17 @@ place after HTML elements in .css file
 }
 
 .keyboard .row { /* becasue row is a class */
-    margin-top: 8px;
+    margin-top: 0px;
     display: flex;
     flex-direction: row;
-    gap: 18px;
+    gap: 12px;
 }
 
+.button-disabled {
+    background-color: darkslategrey;
+    color: white;
+    /* color: var(--dark_rich_green); */
+}
 /*image always stays inside parent and scales accordingly*/
 /* .keyboard img {
   width: 100%;
@@ -418,7 +432,7 @@ media queries
     }
 
     .keyboard .row { /* becasue row is a class */
-        margin-top: 8px;
+        margin-top: 0px;
         gap: 18px;
     }
 

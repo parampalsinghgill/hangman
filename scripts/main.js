@@ -1,41 +1,70 @@
+// get the word_area element
+const word_area = document.getElementById("word_area")
+
 // fetch a word from API
-const word_api_url = "https://random-word-api.herokuapp.com/word"
-//fetch a file
-    fetch(word_api_url)    
-        //accept response    
-        .then(function( response ){
-            //if successful response...
-            if( response.ok ){
-                //...forward to next then() as JSON object
-                return response.json();
-            }
-        })
-        .then(function( data ){
-            //access the JSON data by name
-            //eg: if the JSON file includes a variable named message...
-            console.log(data.message);
-            // out01.innerHTML = `<img src='${data.message}' alt='${data.message}'>`;
+let word_to_guess = "";
+let word_to_guess_hint = "";
+//fetch a word, making function async
 
-        })
-        //.catch if fetch failed 
-        //possibly due to not running over http
-        .catch(function(){            
-            console.log("Catch fetch error");
-        });
+async function fetch_word_and_hint () {
+  const word_api_url = "https://randm-words-api-plum.vercel.app/word"
+  try {
+    const response = await fetch(word_api_url);
 
+    if( !response.ok ) {
+      console.log("Errro getting response")
+    }
+
+    const data = await response.json();
+    const word = data[0].word.toUpperCase()
+    const hint = data[0].definition;
+
+    return {word, hint};
+  }
+  catch(err){            
+        console.error("Catch fetch error", err);
+        
+        // use words.json as backup.. the api has been very unreliable
+        try {
+          const response = await fetch("data/words.json");
+
+          if (!response.ok) {
+            console.log("Errro getting response");
+          }
+
+          const data = await response.json();
+
+          // Pick random item
+          const randomIndex = Math.floor(Math.random() * data.length);
+          const item = data[randomIndex];
+
+          return {
+            word: item.word.toUpperCase(),
+            hint: item.hint
+          };
+
+        } catch (err) {
+          console.error("Error:", err);
+          return null;
+        }
+    }
+}
 
 // build a word area
-const word_to_guess = "Gaggu".toUpperCase();
-const word_area = document.getElementById("word_area")
-// word_area.innerHTML = "Updated"
+function update_word_area(word, hint) {
+  // create containers for letters
+  for (let i=0; i<word.length; i++){
+    // word_area.innerHTML += "<div>i</div>"
+    const alphabet_div = document.createElement("div");
+    alphabet_div.classList.add("alphabet"); // for styles in css
+    alphabet_div.textContent = "*";
+    word_area.appendChild(alphabet_div);
+  }
 
-// create containers for letters
-for (let i=0; i<word_to_guess.length; i++){
-  // word_area.innerHTML += "<div>i</div>"
-  const alphabet_div = document.createElement("div");
-  alphabet_div.classList.add("alphabet"); // for styles in css
-  alphabet_div.textContent = "*";
-  word_area.appendChild(alphabet_div);
+  // update the hint
+  const hint_text = document.getElementById("hint_text");
+  hint_text.textContent = `${hint}`
+
 }
 
 
@@ -55,9 +84,10 @@ keyboardLayout.forEach(row => {
 
   row.forEach(key => {
     const button = document.createElement("button");
+    button.classList.add("button-enabled");
     button.textContent = key;
 
-    button.addEventListener("click", update_word_and_disable)   
+    button.addEventListener("click", update_word_and_disable_button)   
 
     rowDiv.appendChild(button);
   });
@@ -65,15 +95,17 @@ keyboardLayout.forEach(row => {
   keyboard.appendChild(rowDiv);
 });
 
-function update_word_and_disable(e) {
+function update_word_and_disable_button(e) {
   const button_clicked = e.target;
+  console.log(button_clicked);
   const button_text = button_clicked.textContent;
 
   // disable the button
+  button_clicked.disabled = true;
+  button_clicked.classList.remove("button-enabled");
+  button_clicked.classList.add("button-disabled");
 
   // update the guess word if this alphabet is in the word being guessed
-
-
   if (word_to_guess.includes(button_text)) {
     console.log(`${button_text} is present`);
     // get all the divs under word_area
@@ -86,9 +118,33 @@ function update_word_and_disable(e) {
         alphabet_divs[i].textContent = button_text;
       }
     }
-
   }
   else {
     console.log(`${button_text} does not exist`);
+    // update the image
+
+    // update wrong guess counter
+
+    // if wront guess counter = 6, pop up that use has lost, with a close button option
   }
 }
+
+// when a new game  starts, on first loading a page, refreshing a page or clicking new_game button
+function start_new_game() {
+  // enable all buttons
+
+  // updated word area
+  fetch_word_and_hint().then(function (result){
+    if (result) {
+      console.log("Word:", result.word);
+      console.log("Hint:", result.hint);
+      word_to_guess = result.word;
+      word_to_guess_hint = result.hint;
+
+      update_word_area(word_to_guess, word_to_guess_hint);
+    }
+  });
+}
+
+
+start_new_game();
