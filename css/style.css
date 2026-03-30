@@ -175,7 +175,7 @@ place after HTML elements in .css file
     /* flex: 1; 
 } */
 
-.assignment-part {    
+.main-part {    
     /* border: solid 2px black; */
     display: grid;
     grid-template-rows: 55% 15% 30%;
@@ -191,6 +191,36 @@ place after HTML elements in .css file
     /* padding: 5px 10px; */
 }
 
+.hangman-area {
+    display: grid;
+    width: 100%;
+    min-width: 320px;
+    grid-template-columns: 25% 50% 25%;
+    border-color: black;
+    border-style: solid;
+    border-width: 1px 3px 3px 1px;
+    border-radius: 5px 5px 5px 5px;
+    background-color: rgb(244, 244, 239);
+}
+.hangman-area-left, .hangman-area-right {
+    border: 1px dashed black;
+    background-color: rgb(244, 244, 239);
+}
+.hangman-area-right {
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
+}
+.game-stats {
+    flex: 1;   /* shrink to content */
+    border: solid 2px black;
+    margin: 10px 10px;
+    padding: 5px 5px;
+    background-color: var(--dark_rich_green);
+    /* width: auto;
+    min-height: 100px;
+    box-sizing: border-box; */
+}
 .hangman {
   width: 100%;
   display: flex;
@@ -204,10 +234,10 @@ place after HTML elements in .css file
   display: flex;        /* keep centering if needed */
   justify-content: center;
   align-items: center;
-  border-color: black;
+  /* border-color: black;
   border-style: solid;
   border-width: 1px 3px 3px 1px;
-  border-radius: 5px 5px 5px 5px;
+  border-radius: 5px 5px 5px 5px; */
 }
 
 .image-container img {

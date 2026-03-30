@@ -1,5 +1,10 @@
+// 
+const MAX_WRONG_GUESSES = 7;
+let current_wrong_guesses = 0;
+
 // get the word_area element
 const word_area = document.getElementById("word_area")
+const wrong_guesses_tracker = document.getElementById("wrong_guesses_tracker")
 
 // fetch a word from API
 let word_to_guess = "";
@@ -7,7 +12,7 @@ let word_to_guess_hint = "";
 //fetch a word, making function async
 
 async function fetch_word_and_hint () {
-  const word_api_url = "https://randm-words-api-plum.vercel.app/word"
+  const word_api_url = "https://random-words-api-plum.vercel.app/word"
   try {
     const response = await fetch(word_api_url);
 
@@ -124,7 +129,16 @@ function update_word_and_disable_button(e) {
     // update the image
 
     // update wrong guess counter
+    current_wrong_guesses++;
+    update_guesses_tracker();
 
+    if (current_wrong_guesses == MAX_WRONG_GUESSES) {
+      start_new_game();
+
+      // todo change the alert to a nice pop up
+      alert("You lost.");      
+    }
+    
     // if wront guess counter = 6, pop up that use has lost, with a close button option
   }
 }
@@ -142,8 +156,13 @@ function start_new_game() {
       word_to_guess_hint = result.hint;
 
       update_word_area(word_to_guess, word_to_guess_hint);
+      update_guesses_tracker();
     }
   });
+}
+
+function update_guesses_tracker() {
+  wrong_guesses_tracker.textContent = `${current_wrong_guesses}/${MAX_WRONG_GUESSES}`;
 }
 
 

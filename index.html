@@ -26,10 +26,32 @@
         <header>
             <h1>Hangman</h1>
         </header>
-        <main class="assignment-part">
-            <section id="hangman" class="hangman image-container">
+        <main class="main-part">
+            <section class="hangman-area">
+                <div class="hangman-area-left">
+                    <h4>Game Instructions:</h4>
+                    <ol>
+                        <li>A word is hidden: _ _ _ _ _.</li>
+                        <li>Guess letters one by one.</li>
+                        <li>Correct letters appear in the word.</li>
+                        <li>Wrong letters add a part to the hangman.</li>
+                        <li>Guess all letters before the hangman is complete → <strong>You win!</strong></li>
+                        <li>If the hangman is completed first → <strong>You lose!</strong></li>
+                        <li>Use hint to guess.</li>
+                    </ol>
+
+                </div>
+                <div id="hangman" class="hangman image-container">
+                    <img src="images/hangman/hangman-0.PNG" alt="hangman_image">
+                </div>                
+                <div class="hangman-area-right">
+                    <div class="game-stats">
+                        <p>Wrong guesses: </p>
+                        <p id="wrong_guesses_tracker" class="bold"></p>
+
+                    </div>
+                </div>
                 
-                <img src="images/hangman/hangman-0.PNG" alt="hangman_image">
             </section>
             <section id="guess_word_section" class="guess-word-section">
                 <div id="word_area" class="word-area">
