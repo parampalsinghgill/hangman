@@ -5,6 +5,7 @@ let current_wrong_guesses = 0;
 // get the word_area element
 const word_area = document.getElementById("word_area")
 const wrong_guesses_tracker = document.getElementById("wrong_guesses_tracker")
+const hangman_image = document.getElementById("hangman_image")
 
 // fetch a word from API
 let word_to_guess = "";
@@ -12,7 +13,7 @@ let word_to_guess_hint = "";
 //fetch a word, making function async
 
 async function fetch_word_and_hint () {
-  const word_api_url = "https://random-words-api-plum.vercel.app/word"
+  const word_api_url = "https://radom-words-api-plum.vercel.app/word"
   try {
     const response = await fetch(word_api_url);
 
@@ -127,6 +128,16 @@ function update_word_and_disable_button(e) {
   else {
     console.log(`${button_text} does not exist`);
     // update the image
+    let current_img_src = hangman_image.src;
+    console.log(current_img_src);
+    // split by / and get th last element in array
+    let current_img_filename = current_img_src.split("/").pop();
+    console.log(current_img_filename);
+    let match = current_img_filename.match(/\d+/);
+    console.log(match);
+    let new_img_number = Number(match[0]) + 1;
+    console.log(new_img_number);
+    hangman_image.src = `images/hangman/hangman-${new_img_number}.PNG`
 
     // update wrong guess counter
     current_wrong_guesses++;

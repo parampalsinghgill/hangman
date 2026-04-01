@@ -38,7 +38,7 @@ body {
 header {
     background-color: var(--dark_rich_green);
     color: white;
-    padding: 10px;
+    padding: 0px 10px;
 }
 
 
@@ -58,6 +58,7 @@ h4,
 h5,
 h6 {
     color: #0d0e0d;
+    margin: 0px;
 }
 
 h2 {
@@ -194,8 +195,9 @@ place after HTML elements in .css file
 .hangman-area {
     display: grid;
     width: 100%;
-    min-width: 320px;
-    grid-template-columns: 25% 50% 25%;
+    min-width: 0px; /*otherwise as we shrink this tries to maintain min heigh and causes a scrollbar to appear*/
+    min-height: 0px;
+    height: 100%;
     border-color: black;
     border-style: solid;
     border-width: 1px 3px 3px 1px;
@@ -205,6 +207,7 @@ place after HTML elements in .css file
 .hangman-area-left, .hangman-area-right {
     border: 1px dashed black;
     background-color: rgb(244, 244, 239);
+    min-height: 0px;
 }
 .hangman-area-right {
     display: flex;
@@ -230,10 +233,12 @@ place after HTML elements in .css file
 }
 .image-container {
   min-height: 0;    /* critical for grid row to respect height */
-  overflow: hidden; /* prevents image overflow */
-  display: flex;        /* keep centering if needed */
+  /* prevents image overflow */
+  /* overflow: hidden;  */
+  /* keep centering if needed */
+  /* display: flex;        
   justify-content: center;
-  align-items: center;
+  align-items: center; */
   /* border-color: black;
   border-style: solid;
   border-width: 1px 3px 3px 1px;
@@ -243,7 +248,7 @@ place after HTML elements in .css file
 .image-container img {
   width: 100%;
   height: 100%;
-  object-fit: contain; /* or contain if you want no cropping */
+  object-fit: contain; /* contain if you want no cropping */
   display: block;
 }
 
@@ -262,10 +267,11 @@ place after HTML elements in .css file
 }
 .word-area {
     display: flex;
+    flex-wrap: wrap;
     justify-content: center;  /* horizontal center */
     align-items: center;      /* vertical center */
     flex: 1;                  /* take available space */
-    gap: 20px;
+    gap:0px 20px; /*row gap, column gap*/
 }
 .word-area div {
     border-bottom: 3px dashed rgb(41, 40, 40);
@@ -372,7 +378,7 @@ media queries
 /* client is 320px or more */
 @media (min-width: 320px) {
     html {
-        font-size: 1.0em;
+        font-size: 0.7em;
     }
 
     body {
@@ -390,12 +396,20 @@ media queries
     .keyboard .row { /* becasue row is a class */
         gap: 4px;
     }
+
+    .hangman-area {
+        grid-template-columns: 1fr;
+    }
+
+    .main-part {    
+        grid-template-rows: 60% 25% 15%;
+    }
 }
 
 
 @media (min-width: 450px) {
     html {
-        font-size: 1.0em;
+        font-size: 0.7em;
     }
 
     body {
@@ -413,12 +427,20 @@ media queries
     .keyboard .row { /* becasue row is a class */
         gap: 9px;
     }
+
+    .hangman-area {
+        grid-template-columns: 1fr;
+    }
+
+    .main-part {    
+        grid-template-rows: 62% 20% 18%;
+    }
 }
 
 /* client is 680px or more */
-@media (min-width: 620px) {
+@media (min-width: 650px) {
     html {
-        font-size: 1.1em;
+        font-size: 0.8em;
     }
 
     body {
@@ -437,16 +459,19 @@ media queries
         gap: 12px;
     }
 
-    /* .part01 {
-        grid-template-columns: repeat(2, 1fr); */
-    /* grid-template-rows: repeat(2, 1fr); */
-    /* } */
+    .hangman-area {
+        grid-template-columns: 25% 50% 25%;
+    }
+
+    .main-part {    
+        grid-template-rows: 60% 18% 22%;
+    }
 }
 
 /* client is 680px or more */
 @media (min-width: 880px) {
     html {
-        font-size: 1.1em;
+        font-size: 0.9em;
     }
 
     body {
@@ -466,10 +491,9 @@ media queries
         gap: 18px;
     }
 
-    /* .part01 {
-        grid-template-columns: repeat(2, 1fr); */
-    /* grid-template-rows: repeat(2, 1fr); */
-    /* } */
+    .main-part {    
+        grid-template-rows: 57% 17% 26%;
+    }
 }
 
 /* client is wider than 1024px */
@@ -480,7 +504,28 @@ media queries
     }
 
     html {
-        font-size: 1.2em;
+        font-size: 1.0em;
+    }
+
+    body {
+        background-color: var(--body_bg_color);
+    }
+
+    /* .part01 {
+        grid-template-columns: repeat(2, 1fr);
+        grid-template-rows: repeat(2, 1fr);
+    } */
+}
+
+/* client is wider than 1024px */
+@media (min-width: 1360px) {
+    .wrapper {
+        /* max-width: 1440px; */
+        width: 100vw;
+    }
+
+    html {
+        font-size: 1.1em;
     }
 
     body {
