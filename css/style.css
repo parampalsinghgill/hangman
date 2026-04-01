@@ -60,13 +60,18 @@ h6 {
     color: #0d0e0d;
     margin: 0px;
 }
-
+h1 {
+    padding: 10px;
+}
 h2 {
     /* max-height: 60px; */
     margin-block-start: 0px;
     display: flex;
     align-items: center;
     margin: 0px;
+}
+h4 {
+
 }
 
 footer {
@@ -212,7 +217,8 @@ place after HTML elements in .css file
 .hangman-area-right {
     display: flex;
     flex-direction: column;
-    justify-content: flex-start;
+    /* justify-content: flex-start; */
+    align-items: center;
 }
 .game-stats {
     flex: 1;   /* shrink to content */
@@ -220,9 +226,38 @@ place after HTML elements in .css file
     margin: 10px 10px;
     padding: 5px 5px;
     background-color: var(--dark_rich_green);
+    width: 90%;
+    box-sizing: border-box;
+    align-self: center;
     /* width: auto;
     min-height: 100px;
     box-sizing: border-box; */
+}
+.wrong-guess-container {
+    border: 3px solid black;
+    padding: 10px;
+}
+.warning {
+    background-color: red;
+    color: white;
+}
+.btn-new-game {
+    align-self: center;
+    padding: 12px 24px;        /* bigger size */
+    font-size: 16px;           /* larger text */
+    font-weight: bold;
+    background-color: darkred; /* green background */
+    color: white;              /* text color */
+    border: none;              /* remove default border */
+    border-radius: 3px;        /* rounded corners */
+    cursor: pointer;           /* pointer on hover */
+    transition: background-color 0.3s, transform 0.2s; /* smooth hover effect */
+    margin-bottom: 2px;
+}
+
+.btn-new-game:hover {
+  background-color: darkred;
+  transform: scale(1.05);    /* slightly bigger */
 }
 .hangman {
   width: 100%;
@@ -321,7 +356,7 @@ place after HTML elements in .css file
     height: 60px;
     font-size: 24px;
     border: none;          /* remove default border */
-    padding: 8px 8px;     /* some spacing inside the button */
+    padding: 6px 6px;     /* some spacing inside the button */
     cursor: pointer;       /* pointer on hover */
     font-weight: bold;     /* make text bold */
     font-weight: bold;
@@ -337,7 +372,8 @@ place after HTML elements in .css file
 }
 
 .button-disabled {
-    background-color: darkslategrey;
+    /* background-color: darkslategrey; */
+    background-color: var(--dark_rich_green);
     color: white;
     /* color: var(--dark_rich_green); */
 }
@@ -492,7 +528,7 @@ media queries
     }
 
     .main-part {    
-        grid-template-rows: 57% 17% 26%;
+        grid-template-rows: 57% 15% 28%;
     }
 }
 

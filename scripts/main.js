@@ -7,6 +7,13 @@ let correct_alphabets = [];
 const word_area = document.getElementById("word_area")
 const wrong_guesses_tracker = document.getElementById("wrong_guesses_tracker")
 const hangman_image = document.getElementById("hangman_image")
+const btn_new_game = document.getElementById("btn_new_game")
+const wrong_guess_container = document.getElementById("wrong_guess_container")
+
+let handler_toggle_warning = null;
+
+// 
+btn_new_game.addEventListener("click", start_new_game);
 
 // fetch a word from API
 let word_to_guess = "";
@@ -152,6 +159,12 @@ function update_word_and_disable_button(e) {
     current_wrong_guesses++;
     update_guesses_tracker();
 
+    if (current_wrong_guesses == 5) {
+      handler_toggle_warning = setInterval(() => {
+        toggle_warning(wrong_guess_container);
+        }, 1000);
+    }
+
     if (current_wrong_guesses == MAX_WRONG_GUESSES) {
       start_new_game();
 
@@ -164,7 +177,27 @@ function update_word_and_disable_button(e) {
 
 // when a new game  starts, on first loading a page, refreshing a page or clicking new_game button
 function start_new_game() {
+  // clear handler anyways
+  clearInterval(handler_toggle_warning);
+  // remove the waring class from container in case
+  wrong_guess_container.classList.remove("warning");
   // enable all buttons
+  const buttons = document.querySelectorAll("button.button-disabled");
+  // loop through them and enable all disabled
+  buttons.forEach(btn => {
+    btn.disabled = false;
+    btn.classList.add("button-enabled");
+    btn.classList.remove("button-disabled");
+  });
+  // reset the picture
+  hangman_image.src = `images/hangman/hangman-0.PNG`
+
+  // reset the wrong counter
+  current_wrong_guesses = 0;
+
+  // clear the previous word area
+  const divs = word_area.querySelectorAll("div");
+  divs.forEach(div => div.remove());
 
   // updated word area
   fetch_word_and_hint().then(function (result){
@@ -191,6 +224,10 @@ function is_game_won(word, correct_alphabets) {
     }
   }
   return true;
+}
+
+function toggle_warning(dom_element) {
+  dom_element.classList.toggle("warning");
 }
 
 
