@@ -1,6 +1,7 @@
 // 
 const MAX_WRONG_GUESSES = 7;
 let current_wrong_guesses = 0;
+let correct_alphabets = [];
 
 // get the word_area element
 const word_area = document.getElementById("word_area")
@@ -114,6 +115,9 @@ function update_word_and_disable_button(e) {
   // update the guess word if this alphabet is in the word being guessed
   if (word_to_guess.includes(button_text)) {
     console.log(`${button_text} is present`);
+    // add it to correct_alphabets array
+    correct_alphabets.push(button_text);
+
     // get all the divs under word_area
     // Get all div elements inside the container
     const alphabet_divs = word_area.querySelectorAll("div");
@@ -123,6 +127,11 @@ function update_word_and_disable_button(e) {
       if (button_text == word_to_guess[i]) {
         alphabet_divs[i].textContent = button_text;
       }
+    }
+    // check if game is won
+    if (is_game_won(word_to_guess, correct_alphabets))
+    {
+      alert("You won.");
     }
   }
   else {
@@ -147,10 +156,9 @@ function update_word_and_disable_button(e) {
       start_new_game();
 
       // todo change the alert to a nice pop up
+      // if wront guess counter = 7, pop up that use has lost, with a close button option
       alert("You lost.");      
     }
-    
-    // if wront guess counter = 6, pop up that use has lost, with a close button option
   }
 }
 
@@ -174,6 +182,15 @@ function start_new_game() {
 
 function update_guesses_tracker() {
   wrong_guesses_tracker.textContent = `${current_wrong_guesses}/${MAX_WRONG_GUESSES}`;
+}
+
+function is_game_won(word, correct_alphabets) {
+  for (let letter of word) {
+    if (!correct_alphabets.includes(letter)) {
+      return false;
+    }
+  }
+  return true;
 }
 
 
