@@ -9,6 +9,7 @@ closeButton.addEventListener('click', function (){
     //remove it from the page
     // popup.style.display = "none";
     popup.classList.add("hide-pop-up");
+    start_new_game();
 });
 
 function get_won_message() {

@@ -23,8 +23,11 @@ new_game_buttons.forEach(btn => {
 
 let handler_toggle_warning = null;
 
-// 
-// btn_new_game.addEventListener("click", start_new_game);
+// sounds
+const sound_wrong = new Audio("sounds/wrong.mp3");
+const sound_right = new Audio("sounds/right.mp3");
+const sound_won = new Audio("sounds/won.mp3");
+const sound_lost = new Audio("sounds/lost.mp3")
 
 // fetch a word from API
 let word_to_guess = "";
@@ -32,7 +35,7 @@ let word_to_guess_hint = "";
 //fetch a word, making function async
 
 async function fetch_word_and_hint () {
-  const word_api_url = "https://random-words-api-plum.vercel.app/word"
+  const word_api_url = "https://random-words-api-plum.vercel.app/word" // very unreliable API so use json file instead
   if (USE_API) {
     console.log("Using API");
     try {
@@ -52,6 +55,7 @@ async function fetch_word_and_hint () {
         console.error("Catch fetch error", err);
         
         // use words.json as backup.. the api has been very unreliable
+        console.log("Fallback to JSON file");
         try {
           const response = await fetch("data/words.json");
 
@@ -162,6 +166,10 @@ function update_word_and_disable_button(e) {
 
   // update the guess word if this alphabet is in the word being guessed
   if (word_to_guess.includes(button_text)) {
+    // play sound
+    sound_right.currentTime = 0; // restart if already playing
+    sound_right.play();
+
     console.log(`${button_text} is present`);
     // add it to correct_alphabets array
     correct_alphabets.push(button_text);
@@ -180,6 +188,10 @@ function update_word_and_disable_button(e) {
     if (is_game_won(word_to_guess, correct_alphabets))
     {
       console.log("Game is won");
+      // play sound
+      sound_won.currentTime = 0;
+      sound_won.play();
+
       let won_html = get_won_message();
       popup_content.innerHTML = won_html;
       popup.classList.remove("hide-pop-up");
@@ -188,16 +200,16 @@ function update_word_and_disable_button(e) {
   }
   else {
     console.log(`${button_text} does not exist`);
+    // lets play sound
+    sound_wrong.currentTime = 0;
+    sound_wrong.play();
+
     // update the image
     let current_img_src = hangman_image.src;
-    console.log(current_img_src);
     // split by / and get th last element in array
     let current_img_filename = current_img_src.split("/").pop();
-    console.log(current_img_filename);
     let match = current_img_filename.match(/\d+/);
-    console.log(match);
     let new_img_number = Number(match[0]) + 1;
-    console.log(new_img_number);
     hangman_image.src = `images/hangman/hangman-${new_img_number}.PNG`
 
     // update wrong guess counter
@@ -211,15 +223,14 @@ function update_word_and_disable_button(e) {
     }
 
     if (current_wrong_guesses == MAX_WRONG_GUESSES) {
+      console.log("Game is lost");
+      sound_lost.currentTime = 0;
+      sound_lost.play();
+
       let lost_html = get_lost_message(word_to_guess, word_to_guess_hint);
       popup_content.innerHTML = lost_html;
       popup.classList.remove("hide-pop-up");
       popup.classList.add("show-pop-up");
-      // start_new_game();
-
-      // todo change the alert to a nice pop up
-      // if wront guess counter = 7, pop up that use has lost, with a close button option
-      // alert("You lost.");      
     }
   }
 }
