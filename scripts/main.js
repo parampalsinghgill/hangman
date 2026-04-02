@@ -2,6 +2,7 @@
 const MAX_WRONG_GUESSES = 7;
 let current_wrong_guesses = 0;
 let correct_alphabets = [];
+let USE_API = false;
 
 // from pop up section
 const popup_content = document.getElementById("pop_up_content");
@@ -16,7 +17,6 @@ const wrong_guess_container = document.getElementById("wrong_guess_container")
 
 // link the start_new_game method to the btn_new_game class, one btn on main page, second on pop up
 const new_game_buttons = document.querySelectorAll(".btn-new-game");
-console.dir(new_game_buttons);
 new_game_buttons.forEach(btn => {
   btn.addEventListener("click", start_new_game);
 });
@@ -32,8 +32,10 @@ let word_to_guess_hint = "";
 //fetch a word, making function async
 
 async function fetch_word_and_hint () {
-  const word_api_url = "https://radom-words-api-plum.vercel.app/word"
-  try {
+  const word_api_url = "https://random-words-api-plum.vercel.app/word"
+  if (USE_API) {
+    console.log("Using API");
+    try {
     const response = await fetch(word_api_url);
 
     if( !response.ok ) {
@@ -73,6 +75,34 @@ async function fetch_word_and_hint () {
           return null;
         }
     }
+  }
+  else {
+    console.log("Using JSON file");
+    // use words.json as backup.. the api has been very unreliable
+        try {
+          const response = await fetch("data/words.json");
+
+          if (!response.ok) {
+            console.log("Errro getting response");
+          }
+
+          const data = await response.json();
+
+          // Pick random item
+          const randomIndex = Math.floor(Math.random() * data.length);
+          const item = data[randomIndex];
+
+          return {
+            word: item.word.toUpperCase(),
+            hint: item.hint
+          };
+
+        } catch (err) {
+          console.error("Error:", err);
+          return null;
+        }
+  }
+  
 }
 
 // build a word area
