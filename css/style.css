@@ -43,12 +43,6 @@ header {
 }
 
 
-section {
-    /* border: dotted 2px #747e5e; */
-    /* padding: 10px; */
-    /* margin: 10px; */
-}
-
 /*
 If you want to override one header, do it lower.. cascading will help you
 */
@@ -70,9 +64,6 @@ h2 {
     display: flex;
     align-items: center;
     margin: 0px;
-}
-h4 {
-
 }
 
 footer {

@@ -1,0 +1,14 @@
+$primary-color: cadetblue;
+$warning-color: red;
+
+@mixin center-flex {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+body {
+  background-color: $primary-color;
+  @include center-flex;
+  height: 100vh;
+}
