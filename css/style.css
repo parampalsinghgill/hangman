@@ -215,9 +215,6 @@ place after HTML elements in .css file
     background-color: rgb(244, 244, 239);
     min-height: 0px;
 }
-.hangman-area-left {
-    /* border-right: 1px dashed black; */
-}
 .hangman-area-right {
     /* border-left: 1px dashed black; */
     display: flex;
@@ -437,7 +434,7 @@ media queries
 /* client is 320px or more */
 @media (min-width: 320px) {
     html {
-        font-size: 0.7em;
+        font-size: 0.6em;
     }
 
     body {
@@ -462,6 +459,10 @@ media queries
 
     .main-part {    
         grid-template-rows: 60% 25% 15%;
+    }
+
+    .hangman-area-left, .hangman-area-right {
+        padding: 0px;
     }
 }
 
@@ -493,6 +494,10 @@ media queries
 
     .main-part {    
         grid-template-rows: 62% 20% 18%;
+    }
+
+    .hangman-area-left, .hangman-area-right {
+        padding: 10px;
     }
 }
 

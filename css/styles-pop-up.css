@@ -40,6 +40,12 @@
 	background-color: cadetblue;
 	color:white;
 }
+#pop_up_content img {
+	max-width: 80%;   /* image won't exceed popup width */
+    height: auto;      /* maintain aspect ratio */
+    display: block;    /* remove inline spacing */
+    margin: 10px auto; /* center the image with some spacing */
+}
 /* the close X button*/
 #close-pop-up{
 	background-color: white;
