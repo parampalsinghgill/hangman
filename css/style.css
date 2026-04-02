@@ -13,7 +13,8 @@
     /* red means 'it's time to panic!' */
     --good-color: rgb(24, 207, 24);
     /* green means 'let's rock!' */
-    --dark_rich_green: #335347;
+    /* --dark_rich_green: #335347; */
+    --dark_rich_green: cadetblue;
     --body_bg_color: #b2d3e0;
     --hangman_image_bg_color: rgb(244, 244, 239);
 }
@@ -75,8 +76,8 @@ h4 {
 }
 
 footer {
-    background-color: #bfe0d4;
-    color: #335347;
+    background-color: cadetblue;
+    color: black;
     padding: 10px;
 }
 
@@ -210,11 +211,15 @@ place after HTML elements in .css file
     background-color: rgb(244, 244, 239);
 }
 .hangman-area-left, .hangman-area-right {
-    border: 1px dashed black;
+    padding: 10px;
     background-color: rgb(244, 244, 239);
     min-height: 0px;
 }
+.hangman-area-left {
+    /* border-right: 1px dashed black; */
+}
 .hangman-area-right {
+    /* border-left: 1px dashed black; */
     display: flex;
     flex-direction: column;
     /* justify-content: flex-start; */
@@ -241,24 +246,42 @@ place after HTML elements in .css file
     background-color: red;
     color: white;
 }
-.btn-new-game {
+/* .btn-new-game {
     align-self: center;
-    padding: 12px 24px;        /* bigger size */
-    font-size: 16px;           /* larger text */
+    padding: 12px 24px;
+    font-size: 16px;   
     font-weight: bold;
-    background-color: darkred; /* green background */
-    color: white;              /* text color */
-    border: none;              /* remove default border */
-    border-radius: 3px;        /* rounded corners */
-    cursor: pointer;           /* pointer on hover */
-    transition: background-color 0.3s, transform 0.2s; /* smooth hover effect */
-    margin-bottom: 2px;
+    background-color: darkred;
+    color: white;             
+    border: none;             
+    border-radius: 3px;       
+    cursor: pointer;          
+    transition: background-color 0.3s, transform 0.2s;
+    margin-bottom: 5px;
 }
 
 .btn-new-game:hover {
   background-color: darkred;
-  transform: scale(1.05);    /* slightly bigger */
+  transform: scale(1.05);
+} */
+.btn-new-game {
+	background-color: white;
+	color:cadetblue;
+	font-size:1.3em;
+	padding:10px;
+    margin-bottom: 5px;
+	border-radius: 5px;
+	font-weight: bold;
+	border:solid 3px rgb(39, 103, 105);	
+	cursor: pointer;	
 }
+button:hover,
+button:active{
+	background-color: cadetblue;
+	color:white;
+	border:solid 3px white;		
+}
+
 .hangman {
   width: 100%;
   display: flex;

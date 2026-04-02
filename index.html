@@ -14,11 +14,13 @@
 	using the link tag
     -->
     <link href="css/style.css" rel="stylesheet">
+    <link rel="stylesheet" href="css/styles-pop-up.css">
 
     <!--
     load the JavaScript
     -->
-    <script src="scripts/main.js" defer></script>
+    <script src="scripts/pop-up.js" defer></script>
+    <script src="scripts/main.js" defer></script>    
 </head>
 
 <body>
@@ -85,6 +87,19 @@
             <small>&copy; 2026 Parampal Singh Gill</small>
         </footer>
     </div>
+    <section id='pop-up'>
+		<div id="pop-up-visible-area">
+			<button id="close-pop-up">&#x2715;</button>
+            <div id="pop_up_content">
+                <h2>Please Donate</h2>
+                <p>Lorem ipsum dolor sit amet, consectetuer adipiscing 
+                    elit. Aenean commodo ligula eget dolor. Mony donec quam felis, 
+                    ultricies nec, pellentesque eu, pretium quis, sem?
+                </p>
+            </div>
+			<button id="donate-now" class="btn-new-game">Play Again !!!</button>
+	   </div>
+	</section>    
 </body>
 
 </html>

@@ -3,17 +3,28 @@ const MAX_WRONG_GUESSES = 7;
 let current_wrong_guesses = 0;
 let correct_alphabets = [];
 
+// from pop up section
+const popup_content = document.getElementById("pop_up_content");
+
+// from wrapper section
 // get the word_area element
 const word_area = document.getElementById("word_area")
 const wrong_guesses_tracker = document.getElementById("wrong_guesses_tracker")
 const hangman_image = document.getElementById("hangman_image")
-const btn_new_game = document.getElementById("btn_new_game")
+// const btn_new_game = document.getElementById("btn_new_game")
 const wrong_guess_container = document.getElementById("wrong_guess_container")
+
+// link the start_new_game method to the btn_new_game class, one btn on main page, second on pop up
+const new_game_buttons = document.querySelectorAll(".btn-new-game");
+console.dir(new_game_buttons);
+new_game_buttons.forEach(btn => {
+  btn.addEventListener("click", start_new_game);
+});
 
 let handler_toggle_warning = null;
 
 // 
-btn_new_game.addEventListener("click", start_new_game);
+// btn_new_game.addEventListener("click", start_new_game);
 
 // fetch a word from API
 let word_to_guess = "";
@@ -138,7 +149,11 @@ function update_word_and_disable_button(e) {
     // check if game is won
     if (is_game_won(word_to_guess, correct_alphabets))
     {
-      alert("You won.");
+      console.log("Game is won");
+      let won_html = get_won_message();
+      popup_content.innerHTML = won_html;
+      popup.classList.remove("hide-pop-up");
+      popup.classList.add("show-pop-up");
     }
   }
   else {
@@ -166,17 +181,25 @@ function update_word_and_disable_button(e) {
     }
 
     if (current_wrong_guesses == MAX_WRONG_GUESSES) {
-      start_new_game();
+      let lost_html = get_lost_message(word_to_guess, word_to_guess_hint);
+      popup_content.innerHTML = lost_html;
+      popup.classList.remove("hide-pop-up");
+      popup.classList.add("show-pop-up");
+      // start_new_game();
 
       // todo change the alert to a nice pop up
       // if wront guess counter = 7, pop up that use has lost, with a close button option
-      alert("You lost.");      
+      // alert("You lost.");      
     }
   }
 }
 
 // when a new game  starts, on first loading a page, refreshing a page or clicking new_game button
 function start_new_game() {
+  console.log("New Game function fired");
+
+  // hide pop up (if new game clicked from the pop up window)
+  popup.classList.add("hide-pop-up");
   // clear handler anyways
   clearInterval(handler_toggle_warning);
   // remove the waring class from container in case
