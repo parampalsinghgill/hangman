@@ -27,7 +27,20 @@ let handler_toggle_warning = null;
 const sound_wrong = new Audio("sounds/wrong.mp3");
 const sound_right = new Audio("sounds/right.mp3");
 const sound_won = new Audio("sounds/won.mp3");
-const sound_lost = new Audio("sounds/lost.mp3")
+const sound_lost = new Audio("sounds/lost.mp3");
+const sound_suspense = new Audio("sounds/suspense.mp3");
+
+
+// put all sounds in an array for easy control
+const all_sounds = [sound_wrong, sound_right, sound_suspense];
+
+// function to stop all sounds
+function stop_sounds() {
+    all_sounds.forEach(sound => {
+        sound.pause();
+        sound.currentTime = 0;
+    });
+}
 
 // fetch a word from API
 let word_to_guess = "";
@@ -187,6 +200,7 @@ function update_word_and_disable_button(e) {
     // check if game is won
     if (is_game_won(word_to_guess, correct_alphabets))
     {
+      stop_sounds(); // to stop overlappiing with last right guess
       console.log("Game is won");
       // play sound
       sound_won.currentTime = 0;
@@ -217,12 +231,18 @@ function update_word_and_disable_button(e) {
     update_guesses_tracker();
 
     if (current_wrong_guesses == 5) {
+      // play suspenseful music
+      stop_sounds(); // to stop overlappiing with wrong guess
+      sound_suspense.currentTime = 0;
+      sound_suspense.play();
+
       handler_toggle_warning = setInterval(() => {
         toggle_warning(wrong_guess_container);
         }, 1000);
     }
 
     if (current_wrong_guesses == MAX_WRONG_GUESSES) {
+      stop_sounds(); // to stop overlappiing with wrong guess
       console.log("Game is lost");
       sound_lost.currentTime = 0;
       sound_lost.play();
