@@ -1,0 +1,16 @@
+$body-bg-color: cadetblue !default;
+
+// Mixin to force body layout
+@mixin base-body-layout {
+  background-color: cadetblue !important;
+  margin: 0 !important;
+  // display: flex !important;
+  // flex-direction: column !important;
+  // align-items: center !important;
+  // justify-content: center !important;
+  // min-height: 100vh !important;  
+}
+
+body {
+  @include base-body-layout;
+}

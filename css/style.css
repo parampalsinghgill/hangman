@@ -31,11 +31,6 @@ html {
     font-size: 2.4em;
 }
 
-body {
-    background-color: var(--body_bg_color);
-    margin: 0px;
-}
-
 header {
     background-color: var(--dark_rich_green);
     color: white;
@@ -428,9 +423,9 @@ media queries
         font-size: 0.6em;
     }
 
-    body {
+    /* body {
         background-color: var(--body_bg_color);
-    }
+    } */
 
     .keyboard button {
         width: 20px;
@@ -463,9 +458,9 @@ media queries
         font-size: 0.7em;
     }
 
-    body {
+    /* body {
         background-color: var(--body_bg_color);
-    }
+    } */
 
     .keyboard button {
         width: 28px;
@@ -498,9 +493,9 @@ media queries
         font-size: 0.8em;
     }
 
-    body {
+    /* body {
         background-color: var(--body_bg_color);
-    }
+    } */
 
     .keyboard button {
         width: 40px;
@@ -521,6 +516,10 @@ media queries
     .main-part {    
         grid-template-rows: 60% 18% 22%;
     }
+
+    .hangman-area-left, .hangman-area-right {
+        padding: 0px;
+    }
 }
 
 /* client is 680px or more */
@@ -529,9 +528,9 @@ media queries
         font-size: 0.9em;
     }
 
-    body {
+    /* body {
         background-color: var(--body_bg_color);
-    }
+    } */
 
     .keyboard button {
         width: 50px;
@@ -549,6 +548,10 @@ media queries
     .main-part {    
         grid-template-rows: 57% 15% 28%;
     }
+
+    .hangman-area-left, .hangman-area-right {
+        padding: 10px;
+    }
 }
 
 /* client is wider than 1024px */
@@ -562,9 +565,9 @@ media queries
         font-size: 1.0em;
     }
 
-    body {
+    /* body {
         background-color: var(--body_bg_color);
-    }
+    } */
 
     /* .part01 {
         grid-template-columns: repeat(2, 1fr);
@@ -583,9 +586,9 @@ media queries
         font-size: 1.1em;
     }
 
-    body {
+    /* body {
         background-color: var(--body_bg_color);
-    }
+    } */
 
     /* .part01 {
         grid-template-columns: repeat(2, 1fr);

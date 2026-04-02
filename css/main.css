@@ -1,0 +1,668 @@
+body {
+  background-color: cadetblue !important;
+  margin: 0 !important;
+}
+
+@font-face {
+  font-family: "MyCustomFont";
+  src: url("fonts/Google_Sans_Code/GoogleSansCode-VariableFont_wght.ttf") format("truetype"), url("mycustomfont.woff") format("woff");
+}
+/* ------ Variables ------ */
+:root {
+  /* universal palette */
+  --dark-color: #242424;
+  /* near-but-not black */
+  --bad-color: rgb(85, 0, 0);
+  /* red means 'it's time to panic!' */
+  --good-color: rgb(24, 207, 24);
+  /* green means 'let's rock!' */
+  /* --dark_rich_green: #335347; */
+  --dark_rich_green: cadetblue;
+  --body_bg_color: #b2d3e0;
+  --hangman_image_bg_color: rgb(244, 244, 239);
+}
+
+/* Apply to all because not inherited by default. 
+border-box makes sure that when we aplly 100% to something, it includes the border and padding in that
+contect-box is what is applied by the browser by default, and makes 100% only to the content*/
+* {
+  box-sizing: border-box;
+}
+
+html {
+  font-family: "MyCustomFont", sans-serif;
+  font-size: 2.4em;
+}
+
+header {
+  background-color: var(--dark_rich_green);
+  color: white;
+  padding: 0px 10px;
+}
+
+/*
+If you want to override one header, do it lower.. cascading will help you
+*/
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+  color: #0d0e0d;
+  margin: 0px;
+}
+
+h1 {
+  padding: 10px;
+}
+
+h2 {
+  /* max-height: 60px; */
+  margin-block-start: 0px;
+  display: flex;
+  align-items: center;
+  margin: 0px;
+}
+
+footer {
+  background-color: cadetblue;
+  color: black;
+  padding: 10px;
+}
+
+/* 
+---------------------------
+Pseudoclass Selectors 
+---------------------------
+*/
+/*first, rules for all a tags...*/
+a {
+  font-size: 1.2em;
+  letter-spacing: 1.5px;
+  padding: 3px;
+}
+
+/* link has never been clicked*/
+a:link {
+  color: #162B7A;
+  text-shadow: 1px 1px 0px #0191C8;
+}
+
+/* link has been clicked previously */
+a:visited {
+  color: #FAF8F7;
+}
+
+/* link is in mouseover state */
+a:hover {
+  text-decoration: none;
+}
+
+/* you can style for when the user tabs into a tag  */
+a:focus {
+  /* background-color: #fa03fa; */
+  outline: 2px dotted #162B7A;
+}
+
+/* link is being clicked/tapped right now!! */
+a:active {
+  /* background-color: #1afa06; 
+  color: #fc0536; */
+  background-color: rgba(0, 0, 0, 0.1);
+}
+
+/*
+-----------------------------
+.class selectors 
+place after HTML elements in .css file
+-----------------------------
+*/
+.bold {
+  font-weight: bold;
+}
+
+.wrapper {
+  /*
+  make all children display as flex items
+  */
+  /* display: flex; */
+  /*
+  display vertically instead of horizontally
+  */
+  /* flex-direction: column; */
+  display: grid;
+  /* Any length unit can be used to setup your grid */
+  /*  Setup columns	*/
+  /* grid-template-columns: repeat(1, 1fr); */
+  /* Setup rows */
+  grid-template-rows: auto 1fr auto;
+  /* for header, main and footer*/
+  /*
+  even if there is insufficient content,
+  expand the page height to at least be as tall as the viewport */
+  height: 100vh; /* this is relative to viewport */
+  /* stop page conent from getting too wide */
+  width: 100%; /* this is relative to parent */
+  /*  this will center the page horizontally */
+  margin: auto;
+  /* choose a background color */
+  /* background-color: #7a9eac; */
+  /* add some space between the edges 
+  of this div and the contents */
+  padding: 0px 10px;
+  border: solid 2px #33a8cc;
+  border-width: 0px 4px;
+  background-image: url("../images/background/background1.avif");
+}
+
+/* .main-content {
+    display: grid;
+    /* justify-items: center; */
+/*
+justify-items: center;  horizontal center */
+/* flex: 1; 
+} */
+.main-part {
+  /* border: solid 2px black; */
+  display: grid;
+  grid-template-rows: 55% 15% 30%;
+  min-height: 0; /* critical for grid children to respect row heights */
+  /* grid-template-rows: 60% 40%; first row 60%, second 40% */
+  /* grid-template-columns: 1fr; */
+  /* /* grid-template-columns: repeat(2, 1fr); */
+  /* grid-template-rows: repeat(1, 1fr); */
+  margin: 0px auto;
+  max-width: 95%;
+  width: 95%;
+  /* justify-self: center; */
+  /* padding: 5px 10px; */
+}
+
+.hangman-area {
+  display: grid;
+  width: 100%;
+  min-width: 0px; /*otherwise as we shrink this tries to maintain min heigh and causes a scrollbar to appear*/
+  min-height: 0px;
+  height: 100%;
+  border-color: black;
+  border-style: solid;
+  border-width: 1px 3px 3px 1px;
+  border-radius: 5px 5px 5px 5px;
+  background-color: rgb(244, 244, 239);
+}
+
+.hangman-area-left, .hangman-area-right {
+  padding: 10px;
+  background-color: rgb(244, 244, 239);
+  min-height: 0px;
+}
+
+.hangman-area-right {
+  /* border-left: 1px dashed black; */
+  display: flex;
+  flex-direction: column;
+  /* justify-content: flex-start; */
+  align-items: center;
+}
+
+.game-stats {
+  flex: 1; /* shrink to content */
+  border: solid 2px black;
+  margin: 10px 10px;
+  padding: 5px 5px;
+  background-color: var(--dark_rich_green);
+  width: 90%;
+  box-sizing: border-box;
+  align-self: center;
+  /* width: auto;
+  min-height: 100px;
+  box-sizing: border-box; */
+}
+
+.wrong-guess-container {
+  border: 3px solid black;
+  padding: 10px;
+}
+
+.warning {
+  background-color: red;
+  color: white;
+}
+
+/* .btn-new-game {
+    align-self: center;
+    padding: 12px 24px;
+    font-size: 16px;   
+    font-weight: bold;
+    background-color: darkred;
+    color: white;             
+    border: none;             
+    border-radius: 3px;       
+    cursor: pointer;          
+    transition: background-color 0.3s, transform 0.2s;
+    margin-bottom: 5px;
+}
+
+.btn-new-game:hover {
+  background-color: darkred;
+  transform: scale(1.05);
+} */
+.btn-new-game {
+  background-color: white;
+  color: cadetblue;
+  font-size: 1.3em;
+  padding: 10px;
+  margin-bottom: 5px;
+  border-radius: 5px;
+  font-weight: bold;
+  border: solid 3px rgb(39, 103, 105);
+  cursor: pointer;
+}
+
+button:hover,
+button:active {
+  background-color: cadetblue;
+  color: white;
+  border: solid 3px white;
+}
+
+.hangman {
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background-color: rgb(244, 244, 239);
+}
+
+.image-container {
+  min-height: 0; /* critical for grid row to respect height */
+  /* prevents image overflow */
+  /* overflow: hidden;  */
+  /* keep centering if needed */
+  /* display: flex;        
+  justify-content: center;
+  align-items: center; */
+  /* border-color: black;
+  border-style: solid;
+  border-width: 1px 3px 3px 1px;
+  border-radius: 5px 5px 5px 5px; */
+}
+
+.image-container img {
+  width: 100%;
+  height: 100%;
+  -o-object-fit: contain;
+     object-fit: contain; /* contain if you want no cropping */
+  display: block;
+}
+
+.guess-word-section {
+  display: flex;
+  flex-direction: column;
+  /* justify-content: center;
+  align-items: center;    
+  flex: 1;                
+  gap: 30px; */
+  background-color: var(--hangman_image_bg_color);
+  border-color: black;
+  border-style: solid;
+  border-width: 1px 3px 3px 1px;
+  border-radius: 5px 5px 5px 5px;
+}
+
+.word-area {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center; /* horizontal center */
+  align-items: center; /* vertical center */
+  flex: 1; /* take available space */
+  gap: 0px 20px; /*row gap, column gap*/
+}
+
+.word-area div {
+  border-bottom: 3px dashed rgb(41, 40, 40);
+  padding: 0px 20px; /* first argument is top and bottom, second is left right*/
+  /* border: 2px solid black; */
+  /* display: inline-block; */
+  /* border-bottom: 2px solid black; */
+  /* border-style: dashed; */
+  /* border-width: 2px; */
+}
+
+.hint-area {
+  display: flex;
+  justify-content: center; /* horizontal center */
+  align-items: center; /* vertical center */
+  /* border: dotted 1px black; */
+  /* center container itself horizontally */
+  margin-left: auto;
+  margin-right: auto;
+  /* background-color: #242424; */
+  color: darkred;
+}
+
+.alphabet {
+  /* color: red;\ */
+  font-weight: bold;
+  font-size: x-large;
+}
+
+.keyboard {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  border-color: black;
+  border-style: solid;
+  border-width: 1px 3px 3px 1px;
+  border-radius: 5px 5px 5px 5px;
+  padding-top: 8px;
+  background-color: var(--hangman_image_bg_color);
+  height: auto;
+  margin-top: 0px;
+  gap: 12px;
+}
+
+.button-enabled {
+  background-color: #242424;
+  color: white; /* text color */
+  width: 60px;
+  height: 60px;
+  font-size: 24px;
+  border: none; /* remove default border */
+  padding: 6px 6px; /* some spacing inside the button */
+  cursor: pointer; /* pointer on hover */
+  font-weight: bold; /* make text bold */
+  font-weight: bold;
+  /* margin: 12px; */
+  border-radius: 50px;
+}
+
+.keyboard .row { /* becasue row is a class */
+  margin-top: 0px;
+  display: flex;
+  flex-direction: row;
+  gap: 12px;
+}
+
+.button-disabled {
+  /* background-color: darkslategrey; */
+  background-color: var(--dark_rich_green);
+  color: white;
+  /* color: var(--dark_rich_green); */
+}
+
+/*image always stays inside parent and scales accordingly*/
+/* .keyboard img {
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
+} */
+/*
+------------------------
+#id element selectors
+------------------------
+*/
+/*
+div containers are useful for grouping
+the entire page's content for layout control
+*/
+/*
+------------------------
+media queries
+------------------------
+*/
+/* If screen is smaller than 600px, apply these styles */
+/* @media (max-width: 600px) {
+    #wrapper {
+        max-width: 600px;
+    }
+} */
+/* client is 320px or more */
+@media (min-width: 320px) {
+  html {
+    font-size: 0.6em;
+  }
+  /* body {
+      background-color: var(--body_bg_color);
+  } */
+  .keyboard button {
+    width: 20px;
+    height: 20px;
+    font-size: 11px;
+    padding: 2px 2px; /* some spacing inside the button */
+    border-radius: 1px; /* optional: rounded corners */
+  }
+  .keyboard .row { /* becasue row is a class */
+    gap: 4px;
+  }
+  .hangman-area {
+    grid-template-columns: 1fr;
+  }
+  .main-part {
+    grid-template-rows: 60% 25% 15%;
+  }
+  .hangman-area-left, .hangman-area-right {
+    padding: 0px;
+  }
+}
+@media (min-width: 450px) {
+  html {
+    font-size: 0.7em;
+  }
+  /* body {
+      background-color: var(--body_bg_color);
+  } */
+  .keyboard button {
+    width: 28px;
+    height: 28px;
+    font-size: 14px;
+    padding: 3px 3px; /* some spacing inside the button */
+    border-radius: 1px; /* optional: rounded corners */
+  }
+  .keyboard .row { /* becasue row is a class */
+    gap: 9px;
+  }
+  .hangman-area {
+    grid-template-columns: 1fr;
+  }
+  .main-part {
+    grid-template-rows: 62% 20% 18%;
+  }
+  .hangman-area-left, .hangman-area-right {
+    padding: 10px;
+  }
+}
+/* client is 680px or more */
+@media (min-width: 650px) {
+  html {
+    font-size: 0.8em;
+  }
+  /* body {
+      background-color: var(--body_bg_color);
+  } */
+  .keyboard button {
+    width: 40px;
+    height: 40px;
+    font-size: 20px;
+    padding: 6px 6px; /* some spacing inside the button */
+    border-radius: 1px; /* optional: rounded corners */
+  }
+  .keyboard .row { /* becasue row is a class */
+    gap: 12px;
+  }
+  .hangman-area {
+    grid-template-columns: 25% 50% 25%;
+  }
+  .main-part {
+    grid-template-rows: 60% 18% 22%;
+  }
+  .hangman-area-left, .hangman-area-right {
+    padding: 0px;
+  }
+}
+/* client is 680px or more */
+@media (min-width: 880px) {
+  html {
+    font-size: 0.9em;
+  }
+  /* body {
+      background-color: var(--body_bg_color);
+  } */
+  .keyboard button {
+    width: 50px;
+    height: 50px;
+    font-size: 24px;
+    padding: 8px 8px; /* some spacing inside the button */
+    border-radius: 2px; /* optional: rounded corners */
+  }
+  .keyboard .row { /* becasue row is a class */
+    margin-top: 0px;
+    gap: 18px;
+  }
+  .main-part {
+    grid-template-rows: 57% 15% 28%;
+  }
+  .hangman-area-left, .hangman-area-right {
+    padding: 10px;
+  }
+}
+/* client is wider than 1024px */
+@media (min-width: 1024px) {
+  .wrapper {
+    /* max-width: 1440px; */
+    width: 100vw;
+  }
+  html {
+    font-size: 1em;
+  }
+  /* body {
+      background-color: var(--body_bg_color);
+  } */
+  /* .part01 {
+      grid-template-columns: repeat(2, 1fr);
+      grid-template-rows: repeat(2, 1fr);
+  } */
+}
+/* client is wider than 1024px */
+@media (min-width: 1360px) {
+  .wrapper {
+    /* max-width: 1440px; */
+    width: 100vw;
+  }
+  html {
+    font-size: 1.1em;
+  }
+  /* body {
+      background-color: var(--body_bg_color);
+  } */
+  /* .part01 {
+      grid-template-columns: repeat(2, 1fr);
+      grid-template-rows: repeat(2, 1fr);
+  } */
+}
+.show-pop-up {
+  display: block;
+}
+
+.hide-pop-up {
+  display: none;
+}
+
+/* place a popup overlay overtop top of page content */
+#pop-up {
+  /* remove this popup from normal page flow */
+  position: fixed;
+  top: 0px;
+  left: 0px;
+  /* fill the entire viewport */
+  width: 100vw;
+  height: 100vh;
+  /* ensure it is over-top all other page elements */
+  z-index: 1000;
+  /* transparency allows user to see content behind */
+  background-color: rgba(45, 66, 66, 0.8);
+  font-size: 0.85em;
+}
+
+/* #pop-up div{ */
+#pop-up-visible-area {
+  /* vertically/horizontally center this element*/
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  transform: translate(-50%, -50%);
+  /* basic box model stuff*/
+  max-width: 400px;
+  min-width: 300px;
+  padding: 10px;
+  border-radius: 10px;
+  box-shadow: 0 0 0 2px rgb(145, 197, 199), 0 0 0 4px cadetblue, 0 0 0 8px rgb(39, 103, 105);
+  background-color: cadetblue;
+  color: white;
+}
+
+#pop_up_content img {
+  max-width: 80%; /* image won't exceed popup width */
+  height: auto; /* maintain aspect ratio */
+  display: block; /* remove inline spacing */
+  margin: 10px auto; /* center the image with some spacing */
+}
+
+/* the close X button*/
+#close-pop-up {
+  background-color: white;
+  color: cadetblue;
+  border-radius: 50%;
+  font-weight: bold;
+  border: solid 3px rgb(39, 103, 105);
+  /*
+  make a 'hand' pointer icon appear on mouseover
+  otherwise it will just be the usual mouse cursor arrow
+  */
+  cursor: pointer;
+  /*
+  locate this X button in the 
+  top right corner of the popup
+  */
+  position: absolute;
+  top: -10px;
+  right: -10px;
+}
+
+#close-pop-up:hover,
+#close-pop-up:focus,
+#close-pop-up:active {
+  background-color: rgb(145, 232, 235);
+  color: white;
+  transform: scale(1.3);
+}
+
+/* Play Again button in pop up */
+/* button:last-of-type{
+	background-color: white;
+	color:cadetblue;
+	font-size:1.3em;
+	padding:10px;
+	border-radius: 5px;
+	font-weight: bold;
+	border:solid 3px rgb(39, 103, 105);	
+	cursor: pointer;	
+}
+button:last-of-type:hover,
+button:last-of-type:focus,
+button:last-of-type:active{
+	background-color: cadetblue;
+	color:white;
+	border:solid 3px white;		
+} */
+header {
+  background-color: cadetblue;
+  color: white;
+}
+
+/* @media (min-width:700px){
+	#pop-up{
+		font-size:1em;
+	}
+} */
