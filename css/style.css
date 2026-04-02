@@ -208,6 +208,10 @@ place after HTML elements in .css file
     /* justify-content: flex-start; */
     align-items: center;
 }
+/* Fade effect on image change */
+#hangman_image {
+  transition: opacity 0.5s ease-in-out;
+}
 .game-stats {
     flex: 1;   /* shrink to content */
     border: solid 2px black;

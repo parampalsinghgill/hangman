@@ -224,7 +224,20 @@ function update_word_and_disable_button(e) {
     let current_img_filename = current_img_src.split("/").pop();
     let match = current_img_filename.match(/\d+/);
     let new_img_number = Number(match[0]) + 1;
-    hangman_image.src = `images/hangman/hangman-${new_img_number}.PNG`
+    // hangman_image.src = `images/hangman/hangman-${new_img_number}.PNG`
+
+    //
+    // Fade out
+    hangman_image.style.opacity = 0;
+
+    // Wait for fade out duration (match CSS transition), then swap src
+    setTimeout(() => {
+        hangman_image.src = `images/hangman/hangman-${new_img_number}.PNG`;
+        
+        // Fade in
+        hangman_image.style.opacity = 1;
+    }, 250); // fade-out duration slightly less than CSS transition
+    //
 
     // update wrong guess counter
     current_wrong_guesses++;
